@@ -1,0 +1,33 @@
+server:
+  port: 8888
+
+spring:
+  kaptcha:
+    store:  redis
+    redis:  localhost:6379
+  datasource:
+    url: jdbc:mysql://localhost:3306/y-sso?useSSL=true&autoReconnect=true&verifyServerCertificate=false&tinyInt1isBit=true&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 12345678
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      auto-commit: false
+      connection-test-query: SELECT 1
+      pool-name: HikariDataSource
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 0
+
+# mybatis plus
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: com.ryanbing.pojo
+
