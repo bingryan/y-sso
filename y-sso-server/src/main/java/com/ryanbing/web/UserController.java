@@ -46,7 +46,7 @@ public class UserController {
     }
 
 
-    @Authorization
+//    @Authorization
     @GetMapping(value = "/user")
     public ResponseResult<User> getUserInfo(HttpServletRequest request) {
         return userService.getUserInfo(request);

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CookieUtil {
     private static final String COOKIE_PATH = "/";
 
+
     private static final int COOKIE_EXTIME = 60 * 60 * 24 * 31 * 12;
 
 

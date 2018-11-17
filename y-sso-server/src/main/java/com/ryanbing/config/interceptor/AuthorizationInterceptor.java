@@ -30,12 +30,14 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     private TokenManager tokenManager;
 
 
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) {
             return super.preHandle(request, response, handler);
         }
+        String authorization = CookieUtil.getValue(request, Const.DOMAIN.AUTHORIZATION);
+
+        System.out.println(authorization);
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
 
@@ -44,7 +46,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         if (isPublic) {
             return true;
         }
-        String authorization = CookieUtil.getValue(request, Const.DOMAIN.AUTHORIZATION);
+
 
         // 是否登录
         boolean isNotVerified = (handlerMethod.hasMethodAnnotation(Authorization.class)
@@ -53,7 +55,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         if (isNotVerified) {
             response.setContentType("application/json;charset=UTF-8");
             try (PrintWriter writer = response.getWriter()) {
-                String json = JsonUtils.toJson(ResponseResult.error(ResponseCode.UNAUTHORIZED.getCode(), "用户未登入"));
+                String json = JsonUtils.toJson(ResponseResult.error(ResponseCode.ERROR.getCode(), "用户未登入"));
                 writer.write(json);
                 writer.flush();
             } catch (IOException e) {
